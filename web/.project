@@ -3,11 +3,11 @@
 	<name>web</name>
 	<comment></comment>
 	<projects>
-		<project>api-service</project>
-		<project>model</project>
-		<project>service</project>
 		<project>api-dao</project>
+		<project>service</project>
+		<project>api-service</project>
 		<project>dao</project>
+		<project>model</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
