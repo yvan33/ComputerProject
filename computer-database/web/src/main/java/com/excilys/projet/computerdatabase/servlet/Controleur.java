@@ -22,7 +22,7 @@ import java.text.SimpleDateFormat;
 
 @Controller
 public class Controleur {
-
+//coucou je suis le controleur
 	@Autowired
     GestionComputerService service;
 	private final static int MAX_AFFICHAGE = 10;
