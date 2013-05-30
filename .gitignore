@@ -1,1 +1,6 @@
-computer-database/*/target
+*.class
+/target
+# Package Files #
+
+*.war
+*.ear
