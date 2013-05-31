@@ -19,17 +19,21 @@
 		<url-pattern>*.html</url-pattern>
 	</servlet-mapping>
 
-    <context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:spring-configDAO.xml,WEB-INF/spring-configWeb.xml,
-            classpath:spring-configApiDao.xml, classpath:spring-configApiService.xml,
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:spring-configDAO.xml,WEB-INF/spring-configWeb.xml,
             classpath:spring-configService.xml
         </param-value>
-    </context-param>
+	</context-param>
 
 
-    <listener>
-        <listener-class> org.springframework.web.context.ContextLoaderListener </listener-class>
-    </listener>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<error-page>
+		<exception-type>org.springframework.dao.DataAccessException</exception-type>
+		<location>/WEB-INF/jsp/errorPageDataAccess.jsp</location>
+	</error-page>
 
 </web-app>

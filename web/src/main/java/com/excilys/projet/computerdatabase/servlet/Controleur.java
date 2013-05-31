@@ -22,7 +22,7 @@ import java.text.SimpleDateFormat;
 
 @Controller
 public class Controleur {
-//coucou je suis le controleur
+
 	@Autowired
     GestionComputerService service;
 	private final static int MAX_AFFICHAGE = 10;
@@ -131,18 +131,19 @@ public class Controleur {
 			@RequestParam(value = "name", required = false) String name,
 			@RequestParam(value = "introduced", required = false) String introduced,
 			@RequestParam(value = "discontinued", required = false) String discontinued,
-			@RequestParam(value = "company", required = false) String company) {
+			@RequestParam(value = "company", required = false) String company) 
+	{
 
 		boolean error = false;
 		Computer computer = new Computer();
 
 		// Check de l'id
-		if (id!=null) {
+		if (id != null) {
 			computer.setId(id);
 		}
 
 		// Check du nom de l'ordinateur
-		if (name ==null || name.trim().length() == 0) {
+		if (name == null || name.trim().length() == 0) {
 			error = true;
 			model.addAttribute("nameError", "error");
 		} else {
@@ -154,7 +155,7 @@ public class Controleur {
 		df.applyPattern("yyyy-MM-dd");
 		df.setLenient(false);
 
-		if (introduced==null) {
+		if (introduced == null || introduced.isEmpty()) {
 			computer.setIntroduced(null);
 		} else {
 			try {
@@ -165,7 +166,7 @@ public class Controleur {
 			}
 		}
 
-		if (discontinued==null) {
+		if (discontinued == null || discontinued.isEmpty()) {
 			computer.setDiscontinued(null);
 		} else {
 			try {
@@ -178,11 +179,13 @@ public class Controleur {
 		try {
 			// Check de la compagnie
 			if (!StringUtils.isNullOrEmpty(company)) {
-				computer.setCompany(service.getCompany(Integer.parseInt(company)));
+				computer.setCompany(service.getCompany(Integer
+						.parseInt(company)));
 			}
 			if (!error) {
 				service.insertOrUpdate(computer);
-				StringBuilder sb = new StringBuilder("Computer ").append(computer.getName()).append(" has been ");
+				StringBuilder sb = new StringBuilder("Computer ").append(
+						computer.getName()).append(" has been ");
 				if (id != null) {
 					sb.append("updated");
 				} else {
@@ -193,7 +196,7 @@ public class Controleur {
 			} else {
 				model.addAttribute("computer", computer);
 				model.addAttribute("companies", service.getCompanies());
-				if (id!=null) {
+				if (id != null) {
 					return "editionComputer";
 				} else {
 					return "ajoutComputer";
@@ -208,5 +211,6 @@ public class Controleur {
 			return "errorPage";
 		}
 	}
+	
 
 }

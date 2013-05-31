@@ -12,7 +12,6 @@ import java.util.List;
 import com.excilys.projet.computerdatabase.dao.GestionComputerDao;
 import com.excilys.projet.computerdatabase.model.SqlRequestOptions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -25,7 +24,6 @@ import com.excilys.projet.computerdatabase.model.Computer;
 
 
 @Repository
-@Scope("singleton")
 public class GestionComputerDaoImpl implements GestionComputerDao {
 	
 
@@ -130,7 +128,7 @@ public class GestionComputerDaoImpl implements GestionComputerDao {
 	}
 	
 	@Override
-	public int updateComputer(final Computer computer) throws SQLException{
+	public void updateComputer(final Computer computer) throws SQLException{ 
 		int res=jt.update(new PreparedStatementCreator() {
 			@Override
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
@@ -154,11 +152,13 @@ public class GestionComputerDaoImpl implements GestionComputerDao {
 				return myPreparedStatement;
 			}
 		});
-		return res;
+		if (res == 0) {
+			throw new IllegalArgumentException("Erreur lors de l'insert/update de l'ordinateur");
+		}
 	}
 	
 	@Override
-	public int insertComputer(final Computer computer) throws SQLException{
+	public void insertComputer(final Computer computer) throws SQLException{
 		int count = jt.update(new PreparedStatementCreator() {
 			@Override
 			public PreparedStatement createPreparedStatement(Connection con)
@@ -183,7 +183,10 @@ public class GestionComputerDaoImpl implements GestionComputerDao {
 				return myPreparedStatement;
 			}
 		});
-		return count;
+		if (count == 0) {
+			throw new IllegalArgumentException("Erreur lors de l'insert/update de l'ordinateur");
+		}
+	
 	}
 	
 	

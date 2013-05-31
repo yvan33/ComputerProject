@@ -9,7 +9,6 @@ public class PageEdition {
 	
 	
 	public PageEdition(Computer computer, List<Company> companies) {
-		super();
 		this.computer = computer;
 		this.companies = companies;
 	}

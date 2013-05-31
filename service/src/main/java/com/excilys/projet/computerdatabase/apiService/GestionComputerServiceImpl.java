@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 
 @Component
@@ -40,16 +41,9 @@ public class GestionComputerServiceImpl implements GestionComputerService {
 	public Company getCompany(int id) throws SQLException{
 		
 		Company c = null;
-		try {	
-			if(computerDao.isComputerExists(id)){
-				c = companyDao.getCompany(id);
-			} else {
-				throw new IllegalArgumentException("l'id de l'ordinateur n'existe pas.");
-			}
-		} catch(SQLException e) {
-			logger.warn("Erreur lors de la récupération d'une compagnie" + e.getMessage());
-			throw e;
-		}
+			Assert.isTrue(computerDao.isComputerExists(id),"l'id de l'ordinateur n'existe pas.");
+			c = companyDao.getCompany(id);
+
 		return c;
 	}
 	
@@ -57,20 +51,11 @@ public class GestionComputerServiceImpl implements GestionComputerService {
 	@Transactional(readOnly=false)
 	public void insertOrUpdate(Computer computer) throws SQLException{
 
-		int result = 0;
-		try {
 			if(computer.getId()!=0){
-				result = computerDao.updateComputer(computer);
+				computerDao.updateComputer(computer);
 			} else {
-				result = computerDao.insertComputer(computer);
+				computerDao.insertComputer(computer);
 			}
-			if (result == 0) {
-				throw new IllegalArgumentException("Erreur lors de l'insert/update de l'ordinateur");
-			}
-
-		} catch(SQLException e) {
-			logger.warn("Erreur lors de l'insert/update d'un ordinateur" + e.getMessage());
-		}
 	}
 	
 	@Override
