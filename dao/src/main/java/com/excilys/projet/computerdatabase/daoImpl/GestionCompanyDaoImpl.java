@@ -29,9 +29,8 @@ public class GestionCompanyDaoImpl implements GestionCompanyDao {
 	private JdbcTemplate jt;
 
 	
-	
 	@Override
-	public List<Company> getCompanies() throws SQLException{
+	public List<Company> getCompanies() {
 		List<Company> liste= jt.query(new PreparedStatementCreator() {
 			@Override
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
@@ -44,7 +43,7 @@ public class GestionCompanyDaoImpl implements GestionCompanyDao {
 	}
 	
 	@Override
-	public Company getCompany(final int id) throws SQLException{
+	public Company getCompany(final int id){
 		List<Company> liste= jt.query(new PreparedStatementCreator() {
 			@Override
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {

@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import java.sql.SQLException;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -51,7 +50,7 @@ public class Controleur {
 		} catch (NumberFormatException e) {
 			sort = 2;
 		}
-		try {
+
 			page = service.createPage(pageNumber, MAX_AFFICHAGE,
 					new SqlRequestOptions(filter, sort));
 			if (!StringUtils.isNullOrEmpty(info)) {
@@ -62,22 +61,16 @@ public class Controleur {
 			model.addAttribute("filter", filter);
 
 			return "affichageComputers";
-		} catch (SQLException e) {
-			model.addAttribute("error", "Erreur technique");
-			return "errorPage";
-		}
+
 
 	}
 
 	@RequestMapping("ajoutComputer.html")
 	public String ajoutComputerServlet(ModelMap model) {
-		try {
+
 			model.addAttribute("companies", service.getCompanies());
 			return "ajoutComputer";
-		} catch (SQLException e) {
-			model.addAttribute("error", "Erreur technique.");
-			return "errorPage";
-		}
+
 
 	}
 
@@ -93,14 +86,7 @@ public class Controleur {
 			return "editionComputer";
 		}catch(NumberFormatException e){
 			return "affichageComputers";
-		} catch (SQLException e) {
-			model.addAttribute("error", "Erreur technique.");
-			return "errorPage";
-			} catch (IllegalArgumentException e) {
-			logger.warn(e.getMessage());
-			model.addAttribute("error", e.getMessage());
-			return "errorPage";
-		}
+		} 
 	}
 	
 	@RequestMapping("delete.html")
@@ -111,14 +97,7 @@ public class Controleur {
 			service.deleteComputer(id);
 			model.addAttribute("info","Computer has been deleted");
 			return "redirect:affichageComputers.html";
-		} catch (SQLException e) {
-			model.addAttribute("error", "Erreur technique.");
-			return "errorPage";
 		} catch (NumberFormatException e) {
-			model.addAttribute("error", e.getMessage());
-			return "errorPage";
-		} catch (IllegalArgumentException e) {
-			logger.warn(e.getMessage());
 			model.addAttribute("error", e.getMessage());
 			return "errorPage";
 		}
@@ -176,7 +155,7 @@ public class Controleur {
 				model.addAttribute("discontinuedError", "error");
 			}
 		}
-		try {
+
 			// Check de la compagnie
 			if (!StringUtils.isNullOrEmpty(company)) {
 				computer.setCompany(service.getCompany(Integer
@@ -202,14 +181,7 @@ public class Controleur {
 					return "ajoutComputer";
 				}
 			}
-		} catch (SQLException e) {
-			model.addAttribute("error", "Erreur technique");
-			return "errorPage";
-		} catch (IllegalArgumentException e) {
-			logger.warn(e.getMessage());
-			model.addAttribute("error", "L'ordinateur n'existe pas.");
-			return "errorPage";
-		}
+		
 	}
 	
 

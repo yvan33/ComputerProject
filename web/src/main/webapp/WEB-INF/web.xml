@@ -31,9 +31,5 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
-	<error-page>
-		<exception-type>org.springframework.dao.DataAccessException</exception-type>
-		<location>/WEB-INF/jsp/errorPageDataAccess.jsp</location>
-	</error-page>
 
 </web-app>

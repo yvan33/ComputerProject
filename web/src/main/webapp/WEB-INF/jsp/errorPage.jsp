@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page isErrorPage="true" %>
 <!DOCTYPE html>
 <html>
 <head> 
@@ -24,11 +25,10 @@
 		<h1>Error Page</h1>
 
 
-		<c:if test="${! empty error }">
+
 			 <div class="alert-message warning">
-	            <strong>Error: </strong>${error }
+	            <strong>Error: </strong>${exception.message}
 	        </div>
-        </c:if>
 
 	</section>
 

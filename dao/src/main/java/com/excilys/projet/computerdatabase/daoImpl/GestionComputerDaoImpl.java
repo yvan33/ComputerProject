@@ -46,7 +46,7 @@ public class GestionComputerDaoImpl implements GestionComputerDao {
 
 	
 	@Override
-	public List<Computer> getComputers(final int debut,final int nombre,final SqlRequestOptions sqlRequestOptions) throws SQLException{
+	public List<Computer> getComputers(final int debut,final int nombre,final SqlRequestOptions sqlRequestOptions){
 		List<Computer> liste = new ArrayList<Computer>();
 			liste = jt.query(new PreparedStatementCreator() {
 				
@@ -73,7 +73,7 @@ public class GestionComputerDaoImpl implements GestionComputerDao {
 	}
 	
 	@Override
-	public Computer getComputer(final int id) throws SQLException{
+	public Computer getComputer(final int id){
 		List<Computer> liste = new ArrayList<Computer>();
 		liste= jt.query(new PreparedStatementCreator() {
 				@Override
@@ -88,7 +88,7 @@ public class GestionComputerDaoImpl implements GestionComputerDao {
 
 	
 	@Override
-	public Integer getComputerCount(final SqlRequestOptions sqlRequestOptions) throws SQLException{
+	public Integer getComputerCount(final SqlRequestOptions sqlRequestOptions){
 		Integer count = jt.query(new PreparedStatementCreator() {
 			@Override
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
@@ -115,7 +115,7 @@ public class GestionComputerDaoImpl implements GestionComputerDao {
 	}
 	
 	@Override
-	public int deleteComputer(final int id) throws SQLException{
+	public boolean deleteComputer(final int id){
 		int res = jt.update(new PreparedStatementCreator() {
 			@Override
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
@@ -124,11 +124,11 @@ public class GestionComputerDaoImpl implements GestionComputerDao {
 				return myPreparedStatement;
 			}
 		});
-		return res;
+		return (res>0)?true:false;
 	}
 	
 	@Override
-	public void updateComputer(final Computer computer) throws SQLException{ 
+	public boolean updateComputer(final Computer computer){ 
 		int res=jt.update(new PreparedStatementCreator() {
 			@Override
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
@@ -152,13 +152,11 @@ public class GestionComputerDaoImpl implements GestionComputerDao {
 				return myPreparedStatement;
 			}
 		});
-		if (res == 0) {
-			throw new IllegalArgumentException("Erreur lors de l'insert/update de l'ordinateur");
-		}
+		return (res!=0)?true:false;
 	}
 	
 	@Override
-	public void insertComputer(final Computer computer) throws SQLException{
+	public boolean insertComputer(final Computer computer){
 		int count = jt.update(new PreparedStatementCreator() {
 			@Override
 			public PreparedStatement createPreparedStatement(Connection con)
@@ -183,15 +181,12 @@ public class GestionComputerDaoImpl implements GestionComputerDao {
 				return myPreparedStatement;
 			}
 		});
-		if (count == 0) {
-			throw new IllegalArgumentException("Erreur lors de l'insert/update de l'ordinateur");
-		}
-	
+	return (count!=0)?true:false;
 	}
 	
 	
 	@Override
-	public boolean isComputerExists(final int id) throws SQLException{
+	public boolean isComputerExists(final int id){
 		int count = jt.query(new PreparedStatementCreator() {
 			@Override
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
