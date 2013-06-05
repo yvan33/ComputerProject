@@ -1,4 +1,4 @@
-package com.excilys.projet.computerdatabase.service;
+package com.excilys.projet.computerdatabase.serviceImpl;
 
 import java.util.ArrayList;
 import java.util.List;

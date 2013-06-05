@@ -21,8 +21,7 @@
 
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:spring-configDAO.xml,WEB-INF/spring-configWeb.xml,
-            classpath:spring-configService.xml
+		<param-value>WEB-INF/spring-configWeb.xml,classpath:spring-configService.xml,classpath:spring-configDAO.xml
         </param-value>
 	</context-param>
 
